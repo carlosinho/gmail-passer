@@ -50,8 +50,13 @@
   // separates a reply quote from "Here are the numbers:" above a body quote.
   const hasTimeOrEmail = (line) => /\d{1,2}[:.]\d{2}|@/.test(line);
 
-  // Removes only the previous email quoted at the very end of a reply. Quotes
-  // with the author's own text after them, and forwards, are left in place.
+  // Gmail's "---------- Forwarded message ---------", in any language. Its
+  // From/Date/Subject block would otherwise pass for an Outlook reply header.
+  const isForwardMarker = (line) => /^\\?-{2,}\s*\p{L}.*-{2,}\s*$/u.test(line);
+
+  // Removes the previous email quoted at the end of a reply. Quotes with the
+  // author's own text after them, and forwards, are left in place. The one
+  // exception is Outlook-style markers, which cut everything after them.
   function stripTrailingQuote(markdown, isForwardThread) {
     const lines = markdown.split("\n");
 
@@ -63,6 +68,7 @@
           /^\\?-{2,}\s*Original Message\s*-{2,}/i.test(line) ||
           isOutlookHeader(lines, i),
       );
+      if (start > 0 && isForwardMarker(lines[start - 1])) return markdown;
       if (start !== -1) return finish(lines.slice(0, start));
     }
 
