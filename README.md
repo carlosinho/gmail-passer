@@ -81,6 +81,17 @@ The date is whatever Gmail shows in that field's tooltip, so its format follows 
 - **Very long messages:** Gmail clips these and only shows part of them, so only that part is copied until you open the full message in Gmail.
 - **Gmail updates:** the extension depends on Gmail's undocumented class names, so a Gmail change can break it without warning.
 
+## Privacy
+
+Your email stays in your browser. The extension doesn't send your data anywhere, and has no server, analytics or account.
+
+- **Only runs when you ask:** it has no access to Gmail until you click the menu item, and it reads only that tab.
+- **Stores nothing:** the only thing it produces is the Markdown on your clipboard.
+- **No outside code:** the only library, Turndown, is included in this folder, and nothing is downloaded at runtime.
+- **Easy to check:** the code is about 160 lines of plain JavaScript plus Turndown, and the [permissions are explained here](ARCHITECTURE.md#permissions-and-security-considerations).
+
+Anything you copy can still be kept by a clipboard manager or clipboard history, if you use one.
+
 ## Tech stack
 
 - Firefox WebExtension, Manifest V3, in plain JavaScript with no build step and no runtime dependencies to install
