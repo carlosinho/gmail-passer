@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Gmail Passer",
+  "version": "0.1.0",
+  "description": "Right-click in Gmail to copy the visible thread as Markdown.",
+  "icons": {
+    "256": "passer.png"
+  },
+  "permissions": ["menus", "activeTab", "scripting", "clipboardWrite"],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "gmail-passer@localhost",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  }
+}
